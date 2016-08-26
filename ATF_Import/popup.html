@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="jquery-3.1.0.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
+  </head>
+  <body>
+  <style>
+   div {
+      cursor: pointer;
+      text-align: center;
+      padding: 1px 3px;
+      font-family: sans-serif;
+      font-size: 0.8em;
+      width: 100%;
+      margin-top: 2px;
+      background: #cccccc;
+    }
+    </style>
+    <h3 style="font-weight:bold; text-align:center;">DOM Info</h3>
+    <table border="1" cellpadding="15" style="border-collapse:collapse;">
+      <tr><td colspan=1>
+      <div class='bcvexport' id='bcvexport'>Export Order From BCV</div>
+      </td></tr>
+      <tr><td colspan=1>
+      <div class='atfimport' id='atfimport'>Import Data to ATF</div>
+      </td></tr>      
+    </table>
+    <textarea class='flavorlist' id='flavorlist' rows='10'></textarea>
+    <div class="savelist" id="savelist">Save List</div>
+  </body>
+</html>
