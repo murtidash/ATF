@@ -8,7 +8,8 @@ function setDOMInfo(info) {
 
 function getFlavors(info) {  
   console.log(info);
-  $("#flavorlist").text(info);
+  $("#flavorlist").val("");
+  $("#flavorlist").val(info);
   chrome.storage.sync.set({'list': info}, function() {});
 }
 

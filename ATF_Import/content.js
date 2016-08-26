@@ -50,12 +50,26 @@ function addflavor(flavor){
     $("#user_flavor_cost").val(flavor.price);
     var priceperml = Number((flavor.price/flavor.quantity*100/100)).toFixed(2);
     console.log(priceperml);
-    $("#user_flavor_cost_per_ml").val(priceperml);
     $(".panel-footer > .btn").click();
     console.log("had " + origFlavor + " added " + flavor.quantity + " for a total of "+ totalflavor);
   },2000);
 }
 
+function removeflavor(flavor){
+  console.log("in addflavor for " + JSON.stringify(flavor));
+  $("#user_flavor_volume").val(flavor.quantity);
+  $("#user_flavor_cost").val(flavor.price);
+  $(".glyphicon-chevron-right").click();
+  setTimeout(function(){
+    $("#user_flavor_stashed").prop( "checked",false);
+    $("#user_flavor_volume").val(0);
+    $("#user_flavor_cost").val(0);
+    $("#user_flavor_cost_per_ml").val(0);
+
+    $(".panel-footer > .btn").click();
+    console.log("had " + origFlavor + " added " + flavor.quantity + " for a total of "+ totalflavor);
+  },2000);
+}
 if(!(typeof JSON === 'object' && typeof JSON.stringify === 'function')) {
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min.js', winHasJSON);
     }
@@ -101,6 +115,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 
   if ((msg.from === 'popup') && (msg.subject === 'getFlavors')) {
     // Collect the necessary data
+    var flavorlist = [];
     console.log("in cart message");
     cart = $('.CartContents:first > tbody > tr');
     cart.each( 
