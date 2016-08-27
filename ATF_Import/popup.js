@@ -1,15 +1,16 @@
 //https://bugs.chromium.org/p/chromium/issues/detail?id=29379
 // Update the relevant fields with the new data
-function setDOMInfo(info) {
-  document.getElementById('total').textContent   = info.total;
-  document.getElementById('inputs').textContent  = info.inputs;
-  document.getElementById('buttons').textContent = info.buttons;
+function getFlavorsbcv(info) {  
+  console.log(info);
+  $("#flavorlist").text("");
+  $("#flavorlist").text(info);
+  chrome.storage.sync.set({'list': info}, function() {});
 }
 
-function getFlavors(info) {  
+function getFlavorsece(info) {  
   console.log(info);
-  $("#flavorlist").val("");
-  $("#flavorlist").val(info);
+  $("#flavorlist").text("");
+  $("#flavorlist").text(info);
   chrome.storage.sync.set({'list': info}, function() {});
 }
 
@@ -21,25 +22,25 @@ function pushFlavors(info) {
 window.addEventListener('DOMContentLoaded', function () {
   var flist=[];
   chrome.storage.sync.get('list',function(items) {flist=items.list;$("#flavorlist").text(flist)});
-  // ...query for the active tab...
-  chrome.tabs.query({active: true,currentWindow: true}, function (tabs) {
-    chrome.tabs.sendMessage(
-      tabs[0].id,
-      {from: 'popup', subject: 'DOMInfo'},
-      // ...also specifying a callback to be called 
-      //    from the receiving end (content script)
-      setDOMInfo
-    );
-  });
 
-  console.log("before clicky");
+  $("#eceexport").click(function() {
+    chrome.tabs.query({active: true,currentWindow: true}, function (tabs) {
+      console.log("in export");
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        {from: 'popup',subject: 'getFlavorsece'}, 
+        getFlavorsece
+      );
+    })}
+    );
+
   $("#bcvexport").click(function() {
     chrome.tabs.query({active: true,currentWindow: true}, function (tabs) {
       console.log("in export");
       chrome.tabs.sendMessage(
         tabs[0].id,
-        {from: 'popup',subject: 'getFlavors'}, 
-        getFlavors
+        {from: 'popup',subject: 'getFlavorsbcv'}, 
+        getFlavorsbcv
       );
     })}
     );
